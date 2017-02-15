@@ -4,6 +4,7 @@ class Frontend_Controller extends MY_Controller
 	function __construct() {
 		parent::__construct();
 
+        $this->data['site_title'] = "Quiz Bucket";        
 		$this->data['title'] = 'Quiz Bucket | Play Online Quiz and Win Money';
     	$this->data['current_page'] = '';
 

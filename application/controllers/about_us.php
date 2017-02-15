@@ -7,7 +7,7 @@ class About_Us extends Frontend_Controller
 
     public function index() {
         $this->data['current_page'] = 'About Us';
-        $this->data['title'] = 'About Us | Quiz Bucket';
+        $this->data['title'] = 'About Us | '.$this->data['site_title'];
 		
 		$this->load->view('about_us', $this->data);
     }

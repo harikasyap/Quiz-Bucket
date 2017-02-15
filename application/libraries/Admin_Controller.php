@@ -16,6 +16,7 @@ class Admin_Controller extends MY_Controller
 		}
 		
 		$this->data['session'] = $this->session->all_userdata();
+		$this->data['site_title'] = "Quiz Bucket";
     }
 }
 ?>
