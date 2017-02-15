@@ -35,7 +35,7 @@ class Quiz extends Frontend_Controller
     }
 
     public function index($slug = NULL) {
-         
+        //All quizzes except free
         if($slug) {
 
             $this->data['quiz'] = $this->quiz_m->get_by(array('slug' => $slug, 'prize_money !=' => 0), TRUE);
@@ -80,65 +80,6 @@ class Quiz extends Frontend_Controller
 
             $this->load->view('quiz', $this->data);
         }
-
-    }
-
-    //show all paid quiz where pubdate < today & active = 0
-    
-    public function archive() {
-
-        $this->data['quiz'] = $this->quiz_m->get_by(array('date <' => date('Y-m-d'), 'prize_money !=' => 0));
-        $this->data['title'] = 'Quiz Archive | '.$this->data['site_title'];
-
-        $this->load->view('quiz_archive', $this->data);
-
-    }
-
-    public function run($slug = NULL, $id_enc = NULL) {
-
-        if($slug == NULL || $id_enc == NULL) {
-            show_404();
-        } else {
-            $id = decrypt_id($id_enc);
-
-            $this->data['quiz'] = $this->quiz_m->get_by(array('id' => $id, 'slug' => $slug), TRUE);
-            count($this->data['quiz']) || show_404();
-
-            $this->ion_auth->logged_in() || redirect('user/login');
-            $where = array('user_id' => $this->session->userdata('user_id'), 'quiz_id' => $this->data['quiz']->id);
-            $this->userquiz_m->is_enrolled($where) || redirect('quiz/'.$this->data['quiz']->slug);
-                       
-            $start_time = new DateTime($this->data['quiz']->date.' '.$this->data['quiz']->start_time);
-            $end_time = new DateTime($this->data['quiz']->date.' '.$this->data['quiz']->end_time);
-            $now_time = new DateTime(date('Y-m-d H:i:s'));
-
-            //quiz already ended
-            if($now_time >= $end_time) {
-                echo "The Quiz you opted has already expired.";            
-            }
-            //quiz hasn't started yet
-            elseif($now_time < $start_time) {
-                echo 'The Quiz you opted for hasn\'t started yet.';
-                sleep(3);
-                redirect('quiz/'.$quiz->slug);
-            }
-            else {
-                $this->data['end_time'] = $end_time->format('Y-m-d H:i:s');
-                $this->data['id_enc'] = $id_enc;
-
-                //question are converted into array format
-                $this->load->model('ques_m');
-                $ques_n_optn = $this->ques_m->ques_to_array($this->data['quiz']->id);
-                $this->data['questions'] = $ques_n_optn['questions'];
-                $this->data['options'] = $ques_n_optn['options'];
-                $this->data['selected'] = array_fill(0, count($this->data['questions']), '-1');
-                $this->data['selected']['quiz_id'] = $id_enc;
-                $this->data['checksum'] = encrypt_id($this->session->userdata('user_id'));
-                $this->data['title'] = $this->data['quiz']->title.' | '.$this->data['site_title'];
-
-                $this->load->view('quiz_run', $this->data);
-            }    
-        }       
 
     }
 
@@ -227,6 +168,65 @@ class Quiz extends Frontend_Controller
 
             $this->load->view('quiz_free', $this->data);
         }
+    }
+
+    //show all paid quiz where pubdate < today & active = 0
+
+    public function archive() {
+
+        $this->data['quiz'] = $this->quiz_m->get_by(array('date <' => date('Y-m-d'), 'prize_money !=' => 0));
+        $this->data['title'] = 'Quiz Archive | '.$this->data['site_title'];
+
+        $this->load->view('quiz_archive', $this->data);
+
+    }
+
+    public function run($slug = NULL, $id_enc = NULL) {
+
+        if($slug == NULL || $id_enc == NULL) {
+            show_404();
+        } else {
+            $id = decrypt_id($id_enc);
+
+            $this->data['quiz'] = $this->quiz_m->get_by(array('id' => $id, 'slug' => $slug), TRUE);
+            count($this->data['quiz']) || show_404();
+
+            $this->ion_auth->logged_in() || redirect('user/login');
+            $where = array('user_id' => $this->session->userdata('user_id'), 'quiz_id' => $this->data['quiz']->id);
+            $this->userquiz_m->is_enrolled($where) || redirect('quiz/'.$this->data['quiz']->slug);
+                       
+            $start_time = new DateTime($this->data['quiz']->date.' '.$this->data['quiz']->start_time);
+            $end_time = new DateTime($this->data['quiz']->date.' '.$this->data['quiz']->end_time);
+            $now_time = new DateTime(date('Y-m-d H:i:s'));
+
+            //quiz already ended
+            if($now_time >= $end_time) {
+                echo "The Quiz you opted has already expired.";            
+            }
+            //quiz hasn't started yet
+            elseif($now_time < $start_time) {
+                echo 'The Quiz you opted for hasn\'t started yet.';
+                sleep(3);
+                redirect('quiz/'.$quiz->slug);
+            }
+            else {
+                $this->data['end_time'] = $end_time->format('Y-m-d H:i:s');
+                $this->data['id_enc'] = $id_enc;
+
+                //question are converted into array format
+                $this->load->model('ques_m');
+                $ques_n_optn = $this->ques_m->ques_to_array($this->data['quiz']->id);
+                $this->data['questions'] = $ques_n_optn['questions'];
+                $this->data['options'] = $ques_n_optn['options'];
+                $this->data['selected'] = array_fill(0, count($this->data['questions']), '-1');
+                $this->data['selected']['quiz_id'] = $id_enc;
+                $this->data['checksum'] = encrypt_id($this->session->userdata('user_id'));
+                $this->data['title'] = $this->data['quiz']->title.' | '.$this->data['site_title'];
+
+                $this->load->view('quiz_run', $this->data);
+            }    
+        }       
+
     }
 
     public function result($slug = NULL, $id_enc = NULL) {
