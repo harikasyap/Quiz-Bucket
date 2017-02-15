@@ -10,11 +10,6 @@ class Quiz_M extends MY_Model
             'label' => 'Title',
             'rules' => 'trim|required|max_length[100]|xss_clean'
         ),
-        'slug' => array(
-            'field' => 'slug',
-            'label' => 'Slug',
-            'rules' => 'trim|required|max_length[100]|url_title|xss_clean|callback__unique_slug'
-        ),
         'description' => array(
             'field' => 'description',
             'label' => 'Description',
@@ -76,7 +71,6 @@ class Quiz_M extends MY_Model
     {
         $quiz = new stdClass();
         $quiz->title = '';
-        $quiz->slug = '';
         $quiz->description = '';
         $quiz->date = date('Y-m-d');
         $quiz->start_time = '';
@@ -92,6 +86,23 @@ class Quiz_M extends MY_Model
         $this->db->where(array('date >=' => date('Y-m-d'), 'prize_money !=' => 0));
         $this->db->limit($limit);
         return parent::get();
+    }
+
+    //A recursive function for generating unique slug
+
+    public function unique_slug($str, $i = 0) {
+        if($i == 0) {
+            $this->db->where('slug', $str);
+        } else {
+            $this->db->where('slug', $str.'_'.$i);
+        }
+
+        if(count($this->quiz_m->get())) {
+            $this->unique_slug($str, $i+=1);            
+        } else {
+            $url = ($i == 0)? $str : $str.'_'.$i;
+            return $url;
+        }
     }
 
 }

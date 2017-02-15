@@ -72,7 +72,6 @@ class Quiz extends Admin_Controller {
         if ($this->form_validation->run() == TRUE) {
             $post = $this->quiz_m->array_from_post(array(
                 'title',
-                'slug',
                 'description',
                 'date',
                 'start_time',
@@ -90,9 +89,13 @@ class Quiz extends Admin_Controller {
 
             $post['active'] = ($post['active'])? 1 : 0;
 
-            //slug is made to lower case
+            //If a new entry, slug is generated from title
+            //A measure to avoid broken links incase title is changed
 
-            $post['slug'] = strtolower($post['slug']);
+            if($id == NULL) {
+                $slug = url_title($post['title'], 'underscore', TRUE);
+                $post['slug'] = $this->quiz_m->unique_slug($slug);
+            }
 
             //If $id is set it means, it is an edit. So we need to redirect back to the quiz view
             //If $id is null means, it is a new entry. So we redirect to the question page
@@ -213,24 +216,6 @@ class Quiz extends Admin_Controller {
         $this->quiz_m->save($post, $id);
 
         redirect('admin/quiz/'.$id);
-    }
-
-    //Dont validate if slug already exists
-    //Unless it's the slug for the current quiz
-
-    public function _unique_slug ($str) {
-
-        $id = $this->uri->segment(4);
-        $this->db->where('slug', $this->input->post('slug'));
-        ! $id || $this->db->where('id !=', $id);
-        $quiz = $this->quiz_m->get();
-
-        if (count($quiz)) {
-            $this->form_validation->set_message('_unique_slug', 'The %s field should be unique.');
-            return FALSE;
-        }
-        
-        return TRUE;
     }
 
     //Checks if the entered date is backward than today

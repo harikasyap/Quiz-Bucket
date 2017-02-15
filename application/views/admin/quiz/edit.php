@@ -127,14 +127,6 @@
                            </div>
 
                            <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Slug</label>
-                              <div class="col-sm-10">
-                              <?php echo form_error('slug'); ?>
-                                 <?php echo form_input('slug', set_value('slug', $quiz->slug), 'class="form-control"'); ?>
-                              </div>
-                           </div>
-
-                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Description</label>
                               <div class="col-sm-10">
                               <?php echo form_error('description'); ?>
