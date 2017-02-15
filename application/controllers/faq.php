@@ -7,7 +7,7 @@ class Faq extends Frontend_Controller
 
     public function index() {
         $this->data['current_page'] = 'FAQ';
-        $this->data['title'] = 'FAQ | Quiz Bucket';
+        $this->data['title'] = 'FAQ | '.$this->data['site_title'];
 		
 		$this->load->view('faq', $this->data);
     }

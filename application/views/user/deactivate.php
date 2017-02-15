@@ -42,7 +42,7 @@
 
                                                 <h3>Deactivate your account</h3>
                                                 
-                                                <h5>Click the button to deactivate your Quiz Bucket account. Use with caution as you may need to contact admin to activate your account later.</h5>
+                                                <h5>Click the button to deactivate your <?php echo $site_title; ?> account. Use with caution as you may need to contact admin to activate your account later.</h5>
 
                                                 <?php echo form_hidden($csrf); ?>
                                                 <?php echo form_hidden('user_id', $user_id); ?>

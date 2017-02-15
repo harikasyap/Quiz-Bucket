@@ -30,7 +30,7 @@ class Current_Affairs extends Frontend_Controller
 
             $this->data['sidebar'] = $this->currentaffairs_m->ym_list();
 
-            $this->data['title'] = 'Current Affairs | Quiz Bucket';
+            $this->data['title'] = 'Current Affairs | '.$this->data['site_title'];
             $this->data['current_page'] = 'Current Affairs';
             
             $this->load->view('current_affairs', $this->data);
@@ -50,9 +50,9 @@ class Current_Affairs extends Frontend_Controller
             $this->data['sidebar'] = $this->currentaffairs_m->ym_list();
             
             if(strlen($this->data['c_affair']->title) > 21) {
-                $this->data['title'] = substr($this->data['c_affair']->title, 0, 30).'... | Current Affairs | Quiz Bucket';
+                $this->data['title'] = substr($this->data['c_affair']->title, 0, 30).'... | Current Affairs | '.$this->data['site_title'];
             } else {
-                $this->data['title'] = $this->data['c_affair']->title.' | Current Affairs | Quiz Bucket';
+                $this->data['title'] = $this->data['c_affair']->title.' | Current Affairs | '.$this->data['site_title'];
             }
 
             $this->load->view('current_affairs_single', $this->data);
@@ -97,7 +97,7 @@ class Current_Affairs extends Frontend_Controller
         $this->db->limit($per_page, ($pno - 1)*$per_page);
         $this->data['current_affairs'] = $this->currentaffairs_m->get();
 
-        $this->data['title'] = 'Current Affairs | Quiz Bucket';
+        $this->data['title'] = 'Current Affairs | '.$this->data['site_title'];
         $this->load->view('current_affairs_all', $this->data);
     }
 
@@ -124,7 +124,7 @@ class Current_Affairs extends Frontend_Controller
                 
                 $m =  date("F", mktime(0, 0, 0, $month, 1));
 
-                $this->data['title'] = 'Current Affairs '.$year.' '.$m.' | Quiz Bucket';
+                $this->data['title'] = 'Current Affairs '.$year.' '.$m.' | '.$this->data['site_title'];
 
             } elseif(strlen($period) == 4) {
 
@@ -138,7 +138,7 @@ class Current_Affairs extends Frontend_Controller
                 $this->currentaffairs_m->sort($year);
                 $total = count($this->currentaffairs_m->get());
 
-                $this->data['title'] = 'Current Affairs '.$year.' | Quiz Bucket';
+                $this->data['title'] = 'Current Affairs '.$year.' | '.$this->data['site_title'];
 
             } else {
                 show_404();

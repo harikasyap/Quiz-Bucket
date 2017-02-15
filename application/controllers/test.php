@@ -6,6 +6,8 @@ class Test extends Frontend_Controller
    }
 
    public function index() {
+
+    echo strtoupper($this['site_title']);
 /*
     require APPPATH.'libraries/Instamojo.php';
 
@@ -25,7 +27,7 @@ class Test extends Frontend_Controller
         print('Error: ' . $e->getMessage());
     }
 */
-$this->load->view('test', $this->data);
+//$this->load->view('test', $this->data);
    }
 
    public function extra() {

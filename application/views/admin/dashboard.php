@@ -3,9 +3,9 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Quiz Bucket dashboard">
+      <meta name="description" content="<?php echo $site_title; ?> dashboard">
 
-      <title>Dashboard | Quiz Bucket</title>
+      <title>Dashboard | <?php echo $site_title; ?></title>
 
       <link href="<?php echo site_url('dashboard/css/bootstrap.css'); ?>" rel="stylesheet">
       <link href="<?php echo site_url('dashboard/font-awesome/css/font-awesome.css'); ?>" rel="stylesheet" />
@@ -30,7 +30,7 @@
             <div class="sidebar-toggle-box">
                <div class="fa fa-bars"></div>
             </div>
-            <a href="<?php echo site_url('admin'); ?>" class="logo"><b>QUIZ BUCKET</b></a>
+            <a href="<?php echo site_url('admin'); ?>" class="logo"><b><?php echo strtoupper($site_title); ?></b></a>
             <div class="top-menu">
                <ul class="nav pull-right top-menu">
                   <li><?php echo anchor('user/logout', 'Logout', 'class="logout"'); ?></li>
@@ -234,7 +234,7 @@
             $(document).ready(function () {
                var unique_id = $.gritter.add({
                   title: 'Welcome back!',
-                  text: 'Hey there, welcome aboard to the control panel of Quiz Bucket. <br> Let\'s get started!',
+                  text: 'Hey there, welcome aboard to the control panel of <?php echo $site_title; ?>. <br> Let\'s get started!',
                   image: '<?php echo site_url("dashboard/img/logo.jpg"); ?>',
                   sticky: false,
                   time: 7200

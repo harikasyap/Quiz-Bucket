@@ -65,7 +65,7 @@ class Users extends Admin_Controller
             }
         }
 
-        $this->data['title'] = 'Sign Up | Quiz Bucket';
+        $this->data['title'] = 'Sign Up | '.$this->data['site_title'];
 
         $this->load->view('admin/user/admin_register', $this->data);
 

@@ -61,8 +61,8 @@
                     <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
                     <div id="logo">
-                        <a href="<?php echo site_url(); ?>" class="standard-logo" data-dark-logo="<?php echo site_url('img/logo-dark.png'); ?>"><img src="<?php echo site_url('img/logo.png'); ?>" alt="Quiz Bucket Logo"></a>
-                        <a href="<?php echo site_url(); ?>" class="retina-logo" data-dark-logo="<?php echo site_url('img/logo-dark@2x.png'); ?>"><img src="<?php echo site_url('img/logo@2x.png'); ?>" alt="Quiz Bucket Logo"></a>
+                        <a href="<?php echo site_url(); ?>" class="standard-logo" data-dark-logo="<?php echo site_url('img/logo-dark.png'); ?>"><img src="<?php echo site_url('img/logo.png'); ?>" alt="<?php echo $site_title.' Logo'; ?>"></a>
+                        <a href="<?php echo site_url(); ?>" class="retina-logo" data-dark-logo="<?php echo site_url('img/logo-dark@2x.png'); ?>"><img src="<?php echo site_url('img/logo@2x.png'); ?>" alt="<?php echo $site_title.' Logo'; ?>"></a>
                     </div>
 
                     <nav id="primary-menu">

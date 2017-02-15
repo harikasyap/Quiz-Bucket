@@ -101,7 +101,7 @@ class Question_Bank extends Frontend_Controller
 
             }
 
-            $this->data['title'] = 'Question Bank - '.ucwords(str_replace('-', ' ', $tag)).' | Quiz Bucket';
+            $this->data['title'] = 'Question Bank - '.ucwords(str_replace('-', ' ', $tag)).' | '.$this->data['site_title'];
             $this->load->view('question_bank_tag', $this->data);
 
         } else {
@@ -109,7 +109,7 @@ class Question_Bank extends Frontend_Controller
             $this->data['tags'] = $this->tags_m->get();
 
             $this->data['current_page'] = 'Question Bank';
-            $this->data['title'] = 'Question Bank | Quiz Bucket';
+            $this->data['title'] = 'Question Bank | '.$this->data['site_title'];
             
             $this->load->view('question_bank', $this->data);
         }

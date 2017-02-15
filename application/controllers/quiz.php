@@ -68,14 +68,14 @@ class Quiz extends Frontend_Controller
                 $this->data['interval'] = $now_time->diff($start_time);
             }
 
-            $this->data['title'] = $this->data['quiz']->title.' | Quiz Bucket';
+            $this->data['title'] = $this->data['quiz']->title.' | '.$this->data['site_title'];
             $this->data['id_enc'] = encrypt_id($this->data['quiz']->id);
             $this->load->view('quiz_single', $this->data);
 
         } else {
             $this->data['quiz'] = $this->quiz_m->get_by(array('active' => 1));
 
-            $this->data['title'] = 'Quiz | Quiz Bucket';
+            $this->data['title'] = 'Quiz | '.$this->data['site_title'];
             $this->data['current_page'] = 'Quiz';
 
             $this->load->view('quiz', $this->data);
@@ -88,7 +88,7 @@ class Quiz extends Frontend_Controller
     public function archive() {
 
         $this->data['quiz'] = $this->quiz_m->get_by(array('date <' => date('Y-m-d'), 'prize_money !=' => 0));
-        $this->data['title'] = 'Quiz Archive | Quiz Bucket';
+        $this->data['title'] = 'Quiz Archive | '.$this->data['site_title'];
 
         $this->load->view('quiz_archive', $this->data);
 
@@ -134,7 +134,7 @@ class Quiz extends Frontend_Controller
                 $this->data['selected'] = array_fill(0, count($this->data['questions']), '-1');
                 $this->data['selected']['quiz_id'] = $id_enc;
                 $this->data['checksum'] = encrypt_id($this->session->userdata('user_id'));
-                $this->data['title'] = $this->data['quiz']->title.' | Quiz Bucket';
+                $this->data['title'] = $this->data['quiz']->title.' | '.$this->data['site_title'];
 
                 $this->load->view('quiz_run', $this->data);
             }    
@@ -207,14 +207,14 @@ class Quiz extends Frontend_Controller
                 $this->data['selected'] = array_fill(0, count($this->data['questions']), '-1');
                 $this->data['selected']['quiz_id'] = $id_enc;
                 $this->data['checksum'] = encrypt_id($this->session->userdata('user_id'));
-                $this->data['title'] = $this->data['quiz']->title.' | Quiz Bucket';
+                $this->data['title'] = $this->data['quiz']->title.' | '.$this->data['site_title'];
 
                 $this->load->view('quiz_run', $this->data);
 
             } else {
                 //quiz start page
 
-                $this->data['title'] = $this->data['quiz']->title.' | Quiz Bucket';
+                $this->data['title'] = $this->data['quiz']->title.' | '.$this->data['site_title'];
                 $this->data['id_enc'] = encrypt_id($this->data['quiz']->id);
                 $this->load->view('quiz_single', $this->data);
             }
@@ -223,7 +223,7 @@ class Quiz extends Frontend_Controller
             //display free quiz
 
             $this->data['quiz'] = $this->quiz_m->get_by(array('prize_money' => 0, 'cost' => 0, 'active' => 1));
-            $this->data['title'] = 'Free Quiz | Quiz Bucket';
+            $this->data['title'] = 'Free Quiz | '.$this->data['site_title'];
 
             $this->load->view('quiz_free', $this->data);
         }
@@ -386,7 +386,7 @@ class Quiz extends Frontend_Controller
 
                 //load view showing result and rank
                 $this->data['post'] = $post;
-                $this->data['title'] = $this->data['quiz']->title.' Result | Quiz Bucket';
+                $this->data['title'] = $this->data['quiz']->title.' Result | '.$this->data['site_title'];
                 $this->load->view('result_finish', $this->data);
 
 

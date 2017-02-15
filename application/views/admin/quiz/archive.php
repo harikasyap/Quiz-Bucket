@@ -3,9 +3,9 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Quiz Bucket dashboard">
+      <meta name="description" content="<?php echo $site_title; ?> dashboard">
 
-      <title>Quiz - Archive | Quiz Bucket Dashboard</title>
+      <title>Quiz - Archive | <?php echo $site_title; ?> Dashboard</title>
 
       <link href="<?php echo site_url('dashboard/css/bootstrap.css'); ?>" rel="stylesheet">
       <link href="<?php echo site_url('dashboard/font-awesome/css/font-awesome.css'); ?>" rel="stylesheet" />
@@ -28,7 +28,7 @@
             <div class="sidebar-toggle-box">
                <div class="fa fa-bars"></div>
             </div>
-            <a href="<?php echo site_url('admin'); ?>" class="logo"><b>Quiz Bucket</b></a>
+            <a href="<?php echo site_url('admin'); ?>" class="logo"><b><?php echo $site_title; ?></b></a>
             <div class="top-menu">
                <ul class="nav pull-right top-menu">
                   <li><?php echo anchor('user/logout', 'Logout', 'class="logout"'); ?></li>

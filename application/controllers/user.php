@@ -43,7 +43,7 @@ class User extends Frontend_Controller
                     }
                 }
 
-                $this->data['title'] = $this->data['user']->first_name.' '.$this->data['user']->last_name.' profile | Quiz Bucket';
+                $this->data['title'] = $this->data['user']->first_name.' '.$this->data['user']->last_name.' profile | '.$this->data['site_title'];
                 $this->load->view('user/profile', $this->data);
             }            
         }
@@ -91,7 +91,7 @@ class User extends Frontend_Controller
         }
 
         $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-        $this->data['title'] = 'Login | Quiz Bucket';
+        $this->data['title'] = 'Login | '.$this->data['site_title'];
 
         $this->load->view('user/login', $this->data);
 
@@ -164,7 +164,7 @@ class User extends Frontend_Controller
         }
 
         $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-        $this->data['title'] = 'Sign Up | Quiz Bucket';
+        $this->data['title'] = 'Sign Up | '.$this->data['site_title'];
 
         $this->load->view('user/register', $this->data);
 
@@ -240,7 +240,7 @@ class User extends Frontend_Controller
         $this->data['user_id'] = encrypt_id($id);
 
         $this->data['message'] = (validation_errors()) ? validation_errors() : FALSE;
-        $this->data['title'] = 'Deactivate account | Quiz Bucket';
+        $this->data['title'] = 'Deactivate account | '.$this->data['site_title'];
 
         $this->load->view('user/deactivate', $this->data);
 
@@ -302,7 +302,7 @@ class User extends Frontend_Controller
         $this->data['csrf'] = $this->_get_csrf_nonce();
         $this->data['user_id'] = encrypt_id($id);
 
-        $this->data['title'] = 'Change Password | Quiz Bucket';
+        $this->data['title'] = 'Change Password | '.$this->data['site_title'];
 
         $this->load->view('user/change_password', $this->data);
         
@@ -352,7 +352,7 @@ class User extends Frontend_Controller
         $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
         $this->data['u'] = $this->user_m->get($id);
-        $this->data['title'] = 'Edit Information | Quiz Bucket';
+        $this->data['title'] = 'Edit Information | '.$this->data['site_title'];
 
         $this->load->view('user/edit', $this->data);
 
@@ -398,7 +398,7 @@ class User extends Frontend_Controller
             }
         }
         $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-        $this->data['title'] = 'Forgot Password | Quiz Bucket';
+        $this->data['title'] = 'Forgot Password | '.$this->data['site_title'];
 
         $this->load->view('user/forgot_password', $this->data);
     }
@@ -450,7 +450,7 @@ class User extends Frontend_Controller
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
             $this->data['csrf'] = $this->_get_csrf_nonce();
 
-            $this->data['title'] = 'Reset Password | Quiz Bucket';            
+            $this->data['title'] = 'Reset Password | '.$this->data['site_title'];            
 
             $this->load->view('user/reset_password', $this->data);
 
@@ -480,7 +480,7 @@ class User extends Frontend_Controller
             }
         }
 
-        $this->data['title'] = 'Individual Results | Quiz Bucket';
+        $this->data['title'] = 'Individual Results | '.$this->data['site_title'];
 
         $this->load->view('user/results', $this->data);
     }
